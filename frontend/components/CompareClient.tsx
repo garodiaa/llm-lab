@@ -75,53 +75,59 @@ export function CompareClient() {
 
   return (
     <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <CardTitle>Comparison setup</CardTitle>
-              <CardDescription>Run one prompt through selected profiles and compare output behavior.</CardDescription>
+      <div className="relative border bg-card w-full h-full p-6 md:p-8 flex flex-col transition-shadow duration-200 hover:shadow-md">
+        <div className="corner-marker -left-1.5 -top-1.5" />
+        <div className="corner-marker -bottom-1.5 -left-1.5" />
+        <div className="corner-marker -right-1.5 -top-1.5" />
+        <div className="corner-marker -bottom-1.5 -right-1.5" />
+        <Card className="border-0 shadow-none bg-transparent h-full flex flex-col">
+          <CardHeader className="px-0 pt-0">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <CardTitle>Comparison setup</CardTitle>
+                <CardDescription>Run one prompt through selected profiles and compare output behavior.</CardDescription>
+              </div>
+              <Badge variant="secondary" className="w-fit rounded-md">{selected.length} selected</Badge>
             </div>
-            <Badge variant="secondary" className="w-fit rounded-md">{selected.length} selected</Badge>
-          </div>
-        </CardHeader>
-        <CardContent className="grid gap-6 lg:grid-cols-[1fr_340px]">
-          <div className="space-y-2">
-            <Label htmlFor="compare-prompt">Shared prompt</Label>
-            <Textarea id="compare-prompt" value={prompt} onChange={(event) => setPrompt(event.target.value)} />
-            <p className="text-xs text-muted-foreground">The same prompt is sent to every selected model profile.</p>
-          </div>
-          <div className="space-y-3">
-            <Label>Model profiles</Label>
-            <div className="grid gap-3">
-              {models.map((model) => (
-                <label className="flex items-start gap-3 rounded-lg border bg-background p-4 transition-colors hover:bg-muted/40" key={model.id}>
-                  <input
-                    checked={selected.includes(model.id)}
-                    className="mt-1 h-4 w-4 accent-primary"
-                    onChange={() => toggleModel(model.id)}
-                    type="checkbox"
-                  />
-                  <span>
-                    <span className="block text-sm font-medium">{model.name}</span>
-                    <span className="mt-1 block text-xs leading-5 text-muted-foreground">{model.size} - {model.description}</span>
-                  </span>
-                </label>
-              ))}
-              {modelsLoading ? <Skeleton className="h-16 w-full" /> : null}
+          </CardHeader>
+          <CardContent className="grid gap-6 lg:grid-cols-[1fr_340px] px-0 pb-0">
+            <div className="space-y-2">
+              <Label htmlFor="compare-prompt">Shared prompt</Label>
+              <Textarea id="compare-prompt" value={prompt} onChange={(event) => setPrompt(event.target.value)} />
+              <p className="text-xs text-muted-foreground">The same prompt is sent to every selected model profile.</p>
             </div>
-            <Button
-              className="w-full"
-              disabled={loading || selected.length === 0 || prompt.trim().length === 0}
-              onClick={runComparison}
-              type="button"
-            >
-              {loading ? <Loader2 className="animate-spin" aria-hidden="true" /> : <GitCompare aria-hidden="true" />}
-              Compare profiles
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+            <div className="space-y-3">
+              <Label>Model profiles</Label>
+              <div className="grid gap-3">
+                {models.map((model) => (
+                  <label className="flex items-start gap-3 rounded-lg border bg-background p-4 transition-colors hover:bg-muted/40" key={model.id}>
+                    <input
+                      checked={selected.includes(model.id)}
+                      className="mt-1 h-4 w-4 accent-primary"
+                      onChange={() => toggleModel(model.id)}
+                      type="checkbox"
+                    />
+                    <span>
+                      <span className="block text-sm font-medium">{model.name}</span>
+                      <span className="mt-1 block text-xs leading-5 text-muted-foreground">{model.size} - {model.description}</span>
+                    </span>
+                  </label>
+                ))}
+                {modelsLoading ? <Skeleton className="h-16 w-full" /> : null}
+              </div>
+              <Button
+                className="w-full"
+                disabled={loading || selected.length === 0 || prompt.trim().length === 0}
+                onClick={runComparison}
+                type="button"
+              >
+                {loading ? <Loader2 className="animate-spin" aria-hidden="true" /> : <GitCompare aria-hidden="true" />}
+                Compare profiles
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
       {error ? <p className="rounded-lg border border-destructive/20 bg-destructive/10 p-4 text-sm text-destructive">{error}</p> : null}
       {loading ? <ComparisonSkeleton /> : null}

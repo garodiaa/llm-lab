@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import DotPattern from "@/components/ui/dot-pattern-1";
 import { Separator } from "@/components/ui/separator";
 import { StatCard } from "@/components/stat-card";
-
+import { AnimatedList } from "@/components/shadcn-space/animated-list/animated-list-01";
 const labs = [
   {
     href: "/playground",
@@ -33,33 +33,45 @@ const loop = ["Explain", "Visualize", "Experiment", "Reflect"];
 export default function HomePage() {
   return (
     <div className="page-shell space-y-10">
-      <section className="relative overflow-hidden border bg-card p-6 md:p-8 lg:p-10">
-        <DotPattern width={6} height={6} className="fill-muted-foreground/20 dark:fill-muted-foreground/15" />
+      <section className="relative border bg-card p-6 md:p-8 lg:p-10">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <DotPattern width={6} height={6} className="fill-muted-foreground/20 dark:fill-muted-foreground/15" />
+        </div>
         <div className="corner-marker -left-1.5 -top-1.5" />
         <div className="corner-marker -bottom-1.5 -left-1.5" />
         <div className="corner-marker -right-1.5 -top-1.5" />
         <div className="corner-marker -bottom-1.5 -right-1.5" />
 
         <div className="relative z-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div className="max-w-3xl">
+          <div className="w-full">
             <Badge className="rounded-md border-primary/20 bg-primary/10 px-3 py-1 text-primary" variant="outline">
               AI inference education workspace
             </Badge>
-            <h1 className="mt-6 text-5xl font-bold leading-[0.98] tracking-tight text-foreground md:text-7xl">
+            <h1 className="mt-6 text-5xl font-bold leading-[0.98] tracking-tight text-foreground md:text-7xl w-full">
               Learn LLM inference without the mystery.
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
+            <p className="mt-6 text-lg leading-8 text-muted-foreground">
               A grey, black, white, and orange workspace for experimenting with prompts, comparing model profiles, and inspecting every stage of generation.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg">
-                <Link href="/playground">
-                  Open playground <ArrowRight aria-hidden="true" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link href="/visualizer">Inspect pipeline</Link>
-              </Button>
+              <div className="w-fit h-fit relative inline-flex rounded-md overflow-hidden">
+                <span className="absolute inset-0 rounded-md pointer-events-none overflow-hidden">
+                  <span className="absolute -inset-full animate-spin [animation-duration:4s] bg-[conic-gradient(from_0deg,white_0deg,white_40deg,transparent_60deg)]" />
+                </span>
+                <Button asChild size="lg" className="relative z-10 m-[1px] border-0 shadow-none">
+                  <Link href="/playground">
+                    Open playground <ArrowRight aria-hidden="true" />
+                  </Link>
+                </Button>
+              </div>
+              <div className="w-fit h-fit relative inline-flex rounded-md overflow-hidden">
+                <span className="absolute inset-0 rounded-md pointer-events-none overflow-hidden">
+                  <span className="absolute -inset-full animate-spin [animation-duration:4s] bg-[conic-gradient(from_0deg,hsl(var(--primary))_0deg,hsl(var(--primary))_40deg,transparent_60deg)]" />
+                </span>
+                <Button asChild size="lg" variant="outline" className="relative z-10 m-[1px] bg-background hover:bg-background border-0 shadow-none">
+                  <Link href="/visualizer">Inspect pipeline</Link>
+                </Button>
+              </div>
             </div>
           </div>
 
@@ -80,18 +92,20 @@ export default function HomePage() {
                 <MiniMetric label="Device" value="mock-cpu" />
               </div>
               <Separator />
-              <div className="space-y-3">
-                {loop.map((item, index) => (
-                  <div className="flex items-center gap-3 rounded-lg border bg-card p-3" key={item}>
-                    <span className="grid h-8 w-8 place-items-center rounded-md bg-primary/10 text-sm font-semibold text-primary">
-                      {index + 1}
-                    </span>
-                    <div>
-                      <p className="text-sm font-medium">{item}</p>
-                      <p className="text-xs text-muted-foreground">Learning step embedded into every page.</p>
+              <div className="min-h-[310px]">
+                <AnimatedList className="w-full gap-3">
+                  {loop.map((item, index) => (
+                    <div className="flex items-center gap-3 w-full rounded-lg border bg-card p-3" key={item}>
+                      <span className="grid h-8 w-8 place-items-center rounded-md bg-primary/10 text-sm font-semibold text-primary">
+                        {index + 1}
+                      </span>
+                      <div>
+                        <p className="text-sm font-medium">{item}</p>
+                        <p className="text-xs text-muted-foreground">Learning step embedded into every page.</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </AnimatedList>
               </div>
             </CardContent>
           </Card>

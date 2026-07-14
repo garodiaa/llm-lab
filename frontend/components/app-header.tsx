@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { BrainCircuit, Menu, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -31,13 +32,10 @@ export function AppHeader() {
     <header className="sticky top-0 z-40 border-b bg-background/95">
       <div className="container flex h-16 items-center justify-between gap-4">
         <Link href="/" className="flex min-w-0 items-center gap-3">
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-foreground text-background shadow-soft">
-            <BrainCircuit className="h-5 w-5" aria-hidden="true" />
-          </span>
-          <span className="min-w-0">
-            <span className="block truncate text-sm font-semibold leading-5">LLM Lab</span>
-            <span className="block truncate text-xs text-muted-foreground">Inference workspace</span>
-          </span>
+          <div className="relative h-12 w-40 shrink-0 overflow-hidden">
+            <Image src="/llllablogo.png" alt="LLM Lab Logo" fill className="object-contain object-left dark:hidden" />
+            <Image src="/llmlablogodark.png" alt="LLM Lab Logo" fill className="hidden object-contain object-left dark:block" />
+          </div>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Primary navigation">
