@@ -44,7 +44,7 @@ export function AppHeader() {
             return (
               <Link
                 className={cn(
-                  "relative rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
+                  "relative rounded-md px-3 py-2 text-sm font-medium border border-transparent text-muted-foreground transition-all hover:bg-muted hover:text-foreground",
                   active && "bg-foreground text-background hover:bg-foreground hover:text-background"
                 )}
                 href={item.href}
