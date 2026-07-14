@@ -54,21 +54,21 @@ export default function HomePage() {
               A grey, black, white, and orange workspace for experimenting with prompts, comparing model profiles, and inspecting every stage of generation.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <div className="w-fit h-fit relative inline-flex rounded-md overflow-hidden">
+              <div className="w-fit h-fit relative inline-flex rounded-md transition-shadow duration-300 hover:shadow-md">
                 <span className="absolute inset-0 rounded-md pointer-events-none overflow-hidden">
                   <span className="absolute -inset-full animate-spin [animation-duration:4s] bg-[conic-gradient(from_0deg,white_0deg,white_40deg,transparent_60deg)]" />
                 </span>
-                <Button asChild size="lg" className="relative z-10 m-[1px] border-0 shadow-none">
+                <Button asChild size="lg" className="relative z-10 m-[1px] border-0 hover:shadow-none">
                   <Link href="/playground">
                     Open playground <ArrowRight aria-hidden="true" />
                   </Link>
                 </Button>
               </div>
-              <div className="w-fit h-fit relative inline-flex rounded-md overflow-hidden">
+              <div className="w-fit h-fit relative inline-flex rounded-md transition-shadow duration-300 hover:shadow-md">
                 <span className="absolute inset-0 rounded-md pointer-events-none overflow-hidden">
                   <span className="absolute -inset-full animate-spin [animation-duration:4s] bg-[conic-gradient(from_0deg,hsl(var(--primary))_0deg,hsl(var(--primary))_40deg,transparent_60deg)]" />
                 </span>
-                <Button asChild size="lg" variant="outline" className="relative z-10 m-[1px] bg-background hover:bg-background border-0 shadow-none">
+                <Button asChild size="lg" variant="outline" className="relative z-10 m-[1px] bg-background hover:bg-background border-0 hover:shadow-none">
                   <Link href="/visualizer">Inspect pipeline</Link>
                 </Button>
               </div>

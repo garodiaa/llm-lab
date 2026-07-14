@@ -10,6 +10,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import { ShineBorder } from "@/components/ui/shine-border";
 import { Slider as ShadcnSlider } from "@/components/ui/slider";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { InfoIcon } from "lucide-react";
 import NumberFlow from "@number-flow/react";
 import { generateText, getModels } from "@/lib/api";
 import { fallbackModels, getDefaultModelId } from "@/lib/modelCatalog";
@@ -103,18 +106,18 @@ export function PlaygroundClient() {
 
             <div className="space-y-3">
               <Label htmlFor="model">Model</Label>
-              <select
-                className="flex h-11 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                id="model"
-                value={modelId}
-                onChange={(event) => setModelId(event.target.value)}
-              >
-                {models.map((model) => (
-                  <option value={model.id} key={model.id}>
-                    {model.name}
-                  </option>
-                ))}
-              </select>
+              <Select value={modelId} onValueChange={setModelId}>
+                <SelectTrigger id="model" className="w-full h-11">
+                  <SelectValue placeholder="Select a model" />
+                </SelectTrigger>
+                <SelectContent className={"data-[state=open]:!zoom-in-0 origin-center duration-400"}>
+                  {models.map((model) => (
+                    <SelectItem value={model.id} key={model.id}>
+                      {model.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               {modelsLoading ? (
                 <Skeleton className="h-4 w-44" />
               ) : selectedModel ? (
@@ -125,11 +128,11 @@ export function PlaygroundClient() {
             </div>
 
             <div className="grid gap-7">
-              <Slider label="Temperature" value={parameters.temperature} min={0} max={1.5} step={0.1} onChange={(value) => updateParameter("temperature", value)} />
-              <Slider label="Top P" value={parameters.top_p} min={0.1} max={1} step={0.05} onChange={(value) => updateParameter("top_p", value)} />
-              <Slider label="Top K" value={parameters.top_k} min={1} max={100} step={1} onChange={(value) => updateParameter("top_k", value)} />
-              <Slider label="Max Tokens" value={parameters.max_new_tokens} min={16} max={256} step={8} onChange={(value) => updateParameter("max_new_tokens", value)} />
-              <Slider label="Rep Penalty" value={parameters.repetition_penalty} min={1} max={1.4} step={0.01} onChange={(value) => updateParameter("repetition_penalty", value)} />
+              <Slider label="Temperature" description="Controls randomness: Lower values make output more deterministic, higher values make it more creative." value={parameters.temperature} min={0} max={1.5} step={0.1} onChange={(value) => updateParameter("temperature", value)} />
+              <Slider label="Top P" description="Nucleus sampling: Only considers tokens comprising the top P probability mass." value={parameters.top_p} min={0.1} max={1} step={0.05} onChange={(value) => updateParameter("top_p", value)} />
+              <Slider label="Top K" description="Limits the next token selection to the K most probable tokens." value={parameters.top_k} min={1} max={100} step={1} onChange={(value) => updateParameter("top_k", value)} />
+              <Slider label="Max Tokens" description="The maximum number of tokens to generate in the output." value={parameters.max_new_tokens} min={16} max={256} step={8} onChange={(value) => updateParameter("max_new_tokens", value)} />
+              <Slider label="Rep Penalty" description="Penalizes new tokens based on their appearance in the generated text." value={parameters.repetition_penalty} min={1} max={1.4} step={0.01} onChange={(value) => updateParameter("repetition_penalty", value)} />
             </div>
 
             <label className="flex items-center justify-between rounded-lg border bg-muted/30 p-4 text-sm font-medium mt-4">
@@ -203,13 +206,35 @@ export function PlaygroundClient() {
   );
 }
 
-function Slider({ label, value, min, max, step, onChange }: { label: string; value: number; min: number; max: number; step: number; onChange: (value: number) => void }) {
+function Slider({ label, description, value, min, max, step, onChange }: { label: string; description: string; value: number; min: number; max: number; step: number; onChange: (value: number) => void }) {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <p className="text-sm font-medium tracking-tight text-foreground">
-          {label}
-        </p>
+        <div className="flex items-center gap-2">
+          <p className="text-sm font-medium tracking-tight text-foreground">
+            {label}
+          </p>
+          <TooltipProvider delayDuration={0}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button type="button" className="text-muted-foreground hover:text-foreground outline-none">
+                  <InfoIcon className="h-4 w-4" />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent className="max-w-64 py-3 text-pretty" side="top">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <InfoIcon className="size-4" />
+                    <p className="text-sm font-medium">{label}</p>
+                  </div>
+                  <p className="text-muted-foreground mt-1">
+                    {description}
+                  </p>
+                </div>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
         <div className="text-sm font-medium text-muted-foreground flex items-center">
           <NumberFlow
             value={value}
