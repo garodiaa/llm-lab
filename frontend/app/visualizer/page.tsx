@@ -3,15 +3,13 @@ import { VisualizerClient } from "@/components/VisualizerClient";
 
 export default function VisualizerPage() {
   return (
-    <div className="mx-auto max-w-7xl px-5 py-10">
+    <div className="page-shell space-y-8">
       <SectionHeader
         eyebrow="Inspect"
-        title="Follow the inference pipeline step by step."
-        description="Start with text, then inspect tokens, token IDs, tensors, attention masks, model output IDs, and decoded text."
+        title="Trace the inference pipeline."
+        description="Follow a prompt as it becomes tokens, IDs, tensors, attention masks, generated IDs, and decoded output."
       />
-      <div className="mt-8">
-        <VisualizerClient />
-      </div>
+      <VisualizerClient />
     </div>
   );
 }

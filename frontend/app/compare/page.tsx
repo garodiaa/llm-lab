@@ -3,15 +3,13 @@ import { SectionHeader } from "@/components/SectionHeader";
 
 export default function ComparePage() {
   return (
-    <div className="mx-auto max-w-7xl px-5 py-10">
+    <div className="page-shell space-y-8">
       <SectionHeader
         eyebrow="Compare"
-        title="Run one prompt through multiple model profiles."
-        description="Compare outputs, timing, size, and token counts side by side, then read a reflection about why the responses may diverge."
+        title="Evaluate model behavior side by side."
+        description="Run one prompt through multiple model profiles, review their responses, and compare size, speed, and token metrics in a clean dashboard view."
       />
-      <div className="mt-8">
-        <CompareClient />
-      </div>
+      <CompareClient />
     </div>
   );
 }

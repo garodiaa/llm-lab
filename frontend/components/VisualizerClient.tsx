@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Loader2, Workflow } from "lucide-react";
+import { ArrowDown, Code2, Loader2, Workflow } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Skeleton } from "@/components/ui/skeleton";
 import { visualizeInference } from "@/lib/api";
 import type { VisualizeResponse } from "@/types/api";
 
@@ -24,39 +30,85 @@ export function VisualizerClient() {
   }
 
   return (
-    <section className="rounded-lg border border-line bg-panel p-5 shadow-soft">
-      <div className="grid gap-4 md:grid-cols-[1fr_auto]">
-        <input
-          className="focus-ring rounded-lg border border-line bg-white p-3 text-sm"
-          value={prompt}
-          onChange={(event) => setPrompt(event.target.value)}
-        />
-        <button
-          className="focus-ring inline-flex items-center justify-center gap-2 rounded-lg bg-ink px-4 py-3 text-sm font-semibold text-paper transition hover:bg-teal disabled:opacity-60"
-          disabled={loading || prompt.trim().length === 0}
-          onClick={runVisualization}
-          type="button"
-        >
-          {loading ? <Loader2 className="animate-spin" size={18} aria-hidden="true" /> : <Workflow size={18} aria-hidden="true" />}
-          Visualize
-        </button>
-      </div>
-      {error ? <p className="mt-4 rounded-lg border border-rose/30 bg-rose/5 p-4 text-sm text-rose">{error}</p> : null}
-      {result ? (
-        <div className="mt-6 grid gap-4">
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Pipeline input</CardTitle>
+          <CardDescription>Enter a short prompt and inspect how it becomes model-ready data.</CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
+          <div className="space-y-2">
+            <Label htmlFor="visualizer-prompt">Prompt</Label>
+            <Input id="visualizer-prompt" value={prompt} onChange={(event) => setPrompt(event.target.value)} />
+          </div>
+          <Button disabled={loading || prompt.trim().length === 0} onClick={runVisualization} type="button">
+            {loading ? <Loader2 className="animate-spin" aria-hidden="true" /> : <Workflow aria-hidden="true" />}
+            Visualize flow
+          </Button>
+        </CardContent>
+      </Card>
+
+      {error ? <p className="rounded-lg border border-destructive/20 bg-destructive/10 p-4 text-sm text-destructive">{error}</p> : null}
+      {loading ? <PipelineSkeleton /> : null}
+      {!loading && result ? (
+        <div className="grid gap-4">
           {result.steps.map((step, index) => (
-            <article className="rounded-lg border border-line bg-white p-4" key={step.name}>
-              <p className="text-xs font-semibold uppercase text-teal">Step {index + 1}</p>
-              <h2 className="mt-1 text-lg font-semibold text-ink">{step.name}</h2>
-              <p className="mt-3 rounded-lg bg-paper p-3 font-mono text-sm text-ink">{step.value}</p>
-              <p className="mt-3 text-sm leading-6 text-ink/70">{step.explanation}</p>
-              {step.code ? <pre className="mt-3 overflow-x-auto rounded-lg bg-ink p-3 text-sm text-paper">{step.code}</pre> : null}
-            </article>
+            <div key={step.name} className="grid gap-3">
+              <Card className="hover:-translate-y-0.5">
+                <CardHeader>
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                      <Badge variant="secondary" className="mb-3 rounded-md">Step {index + 1}</Badge>
+                      <CardTitle>{step.name}</CardTitle>
+                      <CardDescription>{step.explanation}</CardDescription>
+                    </div>
+                    {step.code ? (
+                      <Badge variant="outline" className="w-fit gap-1.5 rounded-md">
+                        <Code2 className="h-3.5 w-3.5" aria-hidden="true" />
+                        Code
+                      </Badge>
+                    ) : null}
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="rounded-lg border bg-muted/30 p-4 font-mono text-sm leading-6 text-foreground">
+                    {step.value}
+                  </div>
+                  {step.code ? (
+                    <pre className="overflow-x-auto rounded-lg border bg-slate-950 p-4 text-sm leading-6 text-slate-100 dark:bg-slate-900">
+                      {step.code}
+                    </pre>
+                  ) : null}
+                </CardContent>
+              </Card>
+              {index < result.steps.length - 1 ? (
+                <div className="flex justify-center text-muted-foreground">
+                  <ArrowDown className="h-5 w-5" aria-hidden="true" />
+                </div>
+              ) : null}
+            </div>
           ))}
         </div>
-      ) : (
-        <p className="mt-5 text-sm leading-6 text-ink/65">Visualize a prompt to inspect tokenization, IDs, tensor shape, attention mask, and decoding.</p>
-      )}
-    </section>
+      ) : null}
+      {!loading && !result ? (
+        <Card className="border-dashed">
+          <CardContent className="p-8 text-center">
+            <Workflow className="mx-auto h-8 w-8 text-primary" aria-hidden="true" />
+            <p className="mt-4 font-medium">Pipeline waiting</p>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">Run a prompt to see tokenization, token IDs, tensors, masks, generated IDs, and decoded text.</p>
+          </CardContent>
+        </Card>
+      ) : null}
+    </div>
+  );
+}
+
+function PipelineSkeleton() {
+  return (
+    <div className="grid gap-4">
+      <Skeleton className="h-48" />
+      <Skeleton className="h-48" />
+      <Skeleton className="h-48" />
+    </div>
   );
 }
