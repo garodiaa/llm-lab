@@ -33,8 +33,8 @@ export function AppHeader() {
       <div className="container flex h-16 items-center justify-between gap-4">
         <Link href="/" className="flex min-w-0 items-center gap-3">
           <div className="relative h-12 w-40 shrink-0 overflow-hidden">
-            <Image src="/llllablogo.png" alt="LLM Lab Logo" fill className="object-contain object-left dark:hidden" />
-            <Image src="/llmlablogodark.png" alt="LLM Lab Logo" fill className="hidden object-contain object-left dark:block" />
+            <Image src="/llllablogo.png" alt="LLM Lab Logo" fill sizes="160px" className="object-contain object-left dark:hidden" />
+            <Image src="/llmlablogodark.png" alt="LLM Lab Logo" fill sizes="160px" className="hidden object-contain object-left dark:block" />
           </div>
         </Link>
 
