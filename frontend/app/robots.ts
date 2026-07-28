@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/api/',
     },
-    sitemap: 'https://llm-lab.vercel.app/sitemap.xml',
+    sitemap: 'https://llmlab.garodia.me/sitemap.xml',
   };
 }

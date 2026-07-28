@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://llm-lab.vercel.app"),
+  metadataBase: new URL("https://llmlab.garodia.me"),
   title: {
     default: "LLM Lab — Interactive Inference Learning Platform",
     template: "%s | LLM Lab"
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://llm-lab.vercel.app",
+    url: "https://llmlab.garodia.me",
     title: "LLM Lab — Interactive Inference Learning Platform",
     description: "An interactive, visual learning platform designed to demystify Large Language Models (LLMs).",
     siteName: "LLM Lab",
