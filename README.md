@@ -9,7 +9,7 @@
 
 An interactive, visual learning platform designed to demystify Large Language Models (LLMs) and teach the mechanics of generation.
 
-**Live site**: [https://llm-lab.vercel.app] *(Replace with actual Vercel link once deployed)*
+**Live site**: [[https://llmlab.garodia.me](https://llmlab.garodia.me/)]
 
 **Main project repository**: https://github.com/garodiaa/llm-lab
 
