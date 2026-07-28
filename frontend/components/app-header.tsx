@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { BrainCircuit, Menu, Sparkles } from "lucide-react";
+import { BrainCircuit, Menu, Sparkles, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -30,7 +30,7 @@ export function AppHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b bg-background/95">
-      <div className="container flex h-16 items-center justify-between gap-4">
+      <div className="w-full max-w-[1600px] mx-auto px-4 md:px-8 xl:px-12 flex h-16 items-center justify-between gap-4">
         <Link href="/" className="flex min-w-0 items-center gap-3">
           <div className="relative h-12 w-40 shrink-0 overflow-hidden">
             <Image src="/llllablogo.png" alt="LLM Lab Logo" fill sizes="160px" className="object-contain object-left dark:hidden" />
@@ -44,8 +44,8 @@ export function AppHeader() {
             return (
               <Link
                 className={cn(
-                  "relative rounded-md px-3 py-2 text-sm font-medium border border-transparent text-muted-foreground transition-all hover:bg-muted hover:text-foreground",
-                  active && "bg-foreground text-background hover:bg-foreground hover:text-background"
+                  "relative rounded-full px-4 py-2 text-sm font-medium border border-transparent text-muted-foreground transition-all hover:border-border hover:text-foreground hover:bg-transparent",
+                  active && "border-border text-foreground"
                 )}
                 href={item.href}
                 key={item.href}
@@ -57,10 +57,11 @@ export function AppHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Badge variant="secondary" className="hidden gap-1.5 rounded-md border-primary/20 bg-primary/10 px-3 py-1.5 text-primary lg:inline-flex">
-            <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-            Mock backend online
-          </Badge>
+          <Button variant="ghost" size="icon" className="rounded-full border border-transparent hover:border-border hover:bg-transparent" asChild aria-label="GitHub Repository">
+            <a href="https://github.com/garodiaa/llm-lab" target="_blank" rel="noopener noreferrer">
+              <Github className="h-4 w-4" />
+            </a>
+          </Button>
           <ThemeToggle />
           <Sheet>
             <SheetTrigger asChild>

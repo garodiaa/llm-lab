@@ -1,15 +1,13 @@
 import { EducationalCard } from "@/components/EducationalCard";
 import { PlaygroundClient } from "@/components/PlaygroundClient";
-import { SectionHeader } from "@/components/SectionHeader";
+
+import { Metadata } from 'next';
+
+export const metadata: Metadata = { title: 'Playground' };
 
 export default function PlaygroundPage() {
   return (
     <div className="page-shell space-y-8">
-      <SectionHeader
-        eyebrow="Experiment"
-        title="Generation playground"
-        description="Tune sampling controls, run a prompt, and connect every metric with a plain-language explanation of what changed."
-      />
       <PlaygroundClient />
       <div className="grid gap-4 md:grid-cols-3">
         <EducationalCard title="Temperature">Higher values make the sampler more willing to pick surprising tokens. Lower values make output more predictable.</EducationalCard>

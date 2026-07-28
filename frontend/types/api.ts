@@ -10,6 +10,7 @@ export type GenerationParameters = {
 export type ModelInfo = {
   id: string;
   name: string;
+  hf_model_id?: string;
   size: string;
   description: string;
   default: boolean;

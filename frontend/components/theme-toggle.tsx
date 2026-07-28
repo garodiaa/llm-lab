@@ -11,9 +11,9 @@ export function ThemeToggle() {
   return (
     <Button
       aria-label="Toggle theme"
-      className="relative"
+      className="relative rounded-full border border-transparent hover:border-border hover:bg-transparent"
       size="icon"
-      variant="outline"
+      variant="ghost"
       onClick={() => setTheme(nextTheme)}
       type="button"
     >

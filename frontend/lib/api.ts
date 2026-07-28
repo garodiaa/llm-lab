@@ -18,7 +18,17 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   });
 
   if (!response.ok) {
-    throw new Error(`API request failed with ${response.status}`);
+    // Try to extract the error message from the JSON body
+    let message = `API request failed with ${response.status}`;
+    try {
+      const body = await response.json();
+      if (body?.error) {
+        message = body.error;
+      }
+    } catch {
+      // body wasn't JSON, keep the generic message
+    }
+    throw new Error(message);
   }
 
   return response.json() as Promise<T>;
@@ -42,9 +52,9 @@ export function compareModels(prompt: string, modelIds: string[], parameters: Ge
   });
 }
 
-export function visualizeInference(prompt: string, modelId: string) {
+export function visualizeInference(prompt: string, modelId: string, prompt2?: string) {
   return request<VisualizeResponse>("/visualize", {
     method: "POST",
-    body: JSON.stringify({ prompt, model_id: modelId })
+    body: JSON.stringify({ prompt, model_id: modelId, prompt2 })
   });
 }

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@fontsource/dm-sans": "^5.2.8",
+    "@huggingface/inference": "^4.13.23",
     "@number-flow/react": "^0.6.1",
     "@radix-ui/react-dialog": "^1.1.19",
     "@radix-ui/react-label": "^2.1.11",
@@ -20,6 +21,7 @@
     "@radix-ui/react-tooltip": "^1.2.12",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.42.2",
     "lucide-react": "^0.468.0",
     "motion": "^12.42.2",
     "next": "^15.5.20",

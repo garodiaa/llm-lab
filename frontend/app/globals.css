@@ -5,48 +5,48 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 24 10% 8%;
+    --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
-    --card-foreground: 24 10% 8%;
+    --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 24 10% 8%;
-    --primary: 0 84% 60%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 0 84.2% 60.2%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 90%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 30 10% 92%;
-    --muted-foreground: 25 7% 42%;
-    --accent: 28 85% 92%;
-    --accent-foreground: 24 92% 28%;
-    --destructive: 0 72% 47%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 30 9% 82%;
-    --input: 30 9% 82%;
-    --ring: 0 84% 60%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 0 84.2% 60.2%;
     --radius: 0.5rem;
     --font-dm-sans: "DM Sans";
   }
 
   .dark {
-    --background: 0 0% 7%;
-    --foreground: 0 0% 96%;
-    --card: 0 0% 10%;
-    --card-foreground: 0 0% 96%;
-    --popover: 0 0% 10%;
-    --popover-foreground: 0 0% 96%;
-    --primary: 0 84% 60%;
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 84.2% 60.2%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 16%;
-    --secondary-foreground: 0 0% 96%;
-    --muted: 0 0% 16%;
-    --muted-foreground: 0 0% 68%;
-    --accent: 0 0% 18%;
-    --accent-foreground: 0 0% 92%;
-    --destructive: 0 72% 55%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 22%;
-    --input: 0 0% 24%;
-    --ring: 0 84% 60%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 84.2% 60.2%;
   }
 
   * {
@@ -55,7 +55,7 @@
 
   html {
     scroll-behavior: smooth;
-    overflow-y: scroll;
+    scrollbar-gutter: stable;
   }
 
   body {
@@ -70,7 +70,7 @@
 
 @layer components {
   .page-shell {
-    @apply container py-8 md:py-12;
+    @apply w-full max-w-[1600px] mx-auto px-4 md:px-8 xl:px-12 py-8 md:py-12;
   }
 
   .section-kicker {
